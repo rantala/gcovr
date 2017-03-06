@@ -1,0 +1,47 @@
+From 0125a130fb3352ecd435b3f9f8e880a4f60a5c4c Mon Sep 17 00:00:00 2001
+From: Lukas Atkinson <amon@cpan.org>
+Date: Fri, 30 Dec 2016 00:39:19 +0100
+Subject: [PATCH] re-enable HTML reports under Python3
+
+In commit 1cc987a23, the `commonpath()` function was added, which quite
+sensibly tries to figure out real path names. Unfortunately, it uses
+`iterools.izip()` which is not available under Python3. Instead, that
+functionality is now provided by the `zip()` builtin.
+
+We therefore define an `izip()` function as an alias for
+`itertools.izip()` if that is available, or else use `zip()`.
+
+Since `commonpath()` is used in HTML reports, it was previously
+impossible to create HTML reports with GCOVR under Python3.
+To prevent such problems in the future, the existing HTML tests should
+be updated and enabled.
+---
+ scripts/gcovr | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/scripts/gcovr b/scripts/gcovr
+index a7b733e..000d0b7 100755
+--- a/scripts/gcovr
++++ b/scripts/gcovr
+@@ -55,6 +55,12 @@ try:
+ except NameError:
+     xrange = range
+ 
++# In Python3, zip is equivalent to izip
++try:
++    izip = itertools.izip
++except AttributeError:
++    izip = zip
++
+ medium_coverage = 75.0
+ high_coverage = 90.0
+ low_color = "LightPink"
+@@ -410,7 +416,7 @@ def commonpath( files ):
+         path = os.path.realpath(f)
+         dirs = path.split( os.path.sep )
+         common = []
+-        for a, b in itertools.izip( dirs, common_dirs ):
++        for a, b in izip( dirs, common_dirs ):
+             if a == b:
+                 common.append( a )
+             elif common:
