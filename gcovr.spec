@@ -1,6 +1,6 @@
 Name:           gcovr
 Version:        3.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A code coverage report generator using GNU gcov
 
 License:        BSD
@@ -50,6 +50,9 @@ rm -rf %{buildroot}%{python3_sitelib}
 %{_bindir}/gcovr
 
 %changelog
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Mon Mar 06 2017 Neal Gompa <ngompa13@gmail.com> - 3.3-4
 - Fix HTML reports for Python 3 (#1428277)
 
