@@ -42,7 +42,7 @@ rm -rf %{buildroot}%{python3_sitelib}
 
 %files
 %license LICENSE.txt
-%doc README.md CHANGELOG.txt doc/guide.txt
+%doc README.rst CHANGELOG.rst
 %{_bindir}/gcovr
 
 %changelog
