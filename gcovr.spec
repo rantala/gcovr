@@ -1,6 +1,8 @@
+%{?python_enable_dependency_generator}
+
 Name:           gcovr
 Version:        4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A code coverage report generator using GNU gcov
 
 License:        BSD
@@ -37,20 +39,23 @@ generates an HTML-formatted report.
 %install
 %py3_install
 
-# python metadata is useless and empty
-rm -rf %{buildroot}%{python3_sitelib}
 
 %files
 %license LICENSE.txt
 %doc README.rst CHANGELOG.rst
 %{_bindir}/gcovr
+%{python3_sitelib}/gcovr*
+
 
 %changelog
-* Fri Sep 7 2018 Neal Gompa <ngompa13@gmail.com> - 4.1-1
+* Fri Sep 07 2018 Neal Gompa <ngompa13@gmail.com> - 4.1-2
+- Add missing files installed in the Python sitelib location
+
+* Fri Sep 07 2018 Neal Gompa <ngompa13@gmail.com> - 4.1-1
 - Release 4.1 to Fedora (#1626452)
 - Reformatted changelog entry
 
-* Fri Sep 7 2018 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 4.1-0
+* Fri Sep 07 2018 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 4.1-0
 - Update to latest gcovr version (4.1)
 - Removed backported upstream patch as it is part of the release
 
