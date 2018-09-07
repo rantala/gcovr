@@ -1,15 +1,11 @@
 Name:           gcovr
-Version:        3.3
-Release:        8%{?dist}
+Version:        4.1
+Release:        0%{?dist}
 Summary:        A code coverage report generator using GNU gcov
 
 License:        BSD
 URL:            http://gcovr.com/
 Source0:        https://github.com/gcovr/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Fix HTML reports for Python 3 (rhbz#1428277)
-# From: https://github.com/gcovr/gcovr/pull/163
-Patch0001:      0001-re-enable-HTML-reports-under-Python3.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -50,6 +46,10 @@ rm -rf %{buildroot}%{python3_sitelib}
 %{_bindir}/gcovr
 
 %changelog
+* Fri Sep 7 2018 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 4.1-0
+- Update to latest gcovr version (4.1)
+- Removed patch 0001-re-enable-HTML-reports-under-Python3.patch since https://github.com/gcovr/gcovr/pull/168
+
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
