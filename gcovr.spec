@@ -2,7 +2,7 @@
 
 Name:           gcovr
 Version:        4.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A code coverage report generator using GNU gcov
 
 License:        BSD
@@ -48,6 +48,9 @@ generates an HTML-formatted report.
 
 
 %changelog
+* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 4.1-6
+- Rebuilt for Python 3.8.0rc1 (#1748018)
+
 * Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 4.1-5
 - Rebuilt for Python 3.8
 
