@@ -2,7 +2,7 @@
 
 Name:           gcovr
 Version:        4.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A code coverage report generator using GNU gcov
 
 License:        BSD
@@ -48,6 +48,9 @@ generates an HTML-formatted report.
 
 
 %changelog
+* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
 * Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 4.1-6
 - Rebuilt for Python 3.8.0rc1 (#1748018)
 
