@@ -1,18 +1,25 @@
 %{?python_enable_dependency_generator}
 
 Name:           gcovr
-Version:        4.1
-Release:        7%{?dist}
+Version:        4.2
+Release:        1%{?dist}
 Summary:        A code coverage report generator using GNU gcov
 
 License:        BSD
-URL:            http://gcovr.com/
+URL:            https://gcovr.com/
 Source0:        https://github.com/gcovr/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  %{py3_dist lxml}
+BuildRequires:  %{py3_dist Jinja2}
+BuildRequires:  %{py3_dist Sphinx}
+BuildRequires:  %{py3_dist sphinx_rtd_theme}
+BuildRequires:  %{py3_dist sphinxcontrib-autoprogram} >= 0.1.5
 
-Requires:       %{_bindir}/gcov
+# for gcov
+Requires:       gcc
+Requires:       %{py3_dist Jinja2}
 
 BuildArch:      noarch
 
@@ -27,9 +34,14 @@ human-readable summary reports, machine readable XML reports
 as a command-line alternative to the lcov utility, which runs gcov and
 generates an HTML-formatted report.
 
+%package        doc
+Summary:        Documentation of gcovr
+
+%description    doc
+Documentation of gcovr.
 
 %prep
-%autosetup -p1
+%autosetup
 
 
 %build
@@ -38,6 +50,27 @@ generates an HTML-formatted report.
 
 %install
 %py3_install
+# the documentation can only be build **after** gcovr is installed
+# => need to set PATH, PYTHONPATH so that the installed binary & package are
+# found
+# also set PYTHON so that the sphinx Makefile picks up python3 instead of
+# python2
+export PYTHONPATH=%{buildroot}%{python3_sitelib}
+export PATH=%{buildroot}%{_bindir}:$PATH
+export PYTHON=python3
+
+pushd .
+cd doc
+
+# Manpage
+make man
+install -D -p -m 0644 build/man/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
+
+# html doc
+make html
+rm build/html/.buildinfo
+
+popd
 
 
 %files
@@ -45,9 +78,17 @@ generates an HTML-formatted report.
 %doc README.rst CHANGELOG.rst
 %{_bindir}/gcovr
 %{python3_sitelib}/gcovr*
+%{_mandir}/man1/%{name}.1*
+
+%files doc
+%doc doc/build/html/*
 
 
 %changelog
+* Tue Feb  4 2020 Dan Čermák <dan.cermak@cgc-instruments.com> - 4.2-1
+- New upstream release 4.2
+- Add doc subpackage containing the user-documentation of gcovr
+
 * Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
