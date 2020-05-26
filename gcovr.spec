@@ -2,7 +2,7 @@
 
 Name:           gcovr
 Version:        4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A code coverage report generator using GNU gcov
 
 License:        BSD
@@ -85,6 +85,9 @@ popd
 
 
 %changelog
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 4.2-2
+- Rebuilt for Python 3.9
+
 * Tue Feb  4 2020 Dan Čermák <dan.cermak@cgc-instruments.com> - 4.2-1
 - New upstream release 4.2
 - Add doc subpackage containing the user-documentation of gcovr
